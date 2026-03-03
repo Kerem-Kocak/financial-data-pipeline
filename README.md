@@ -9,6 +9,9 @@ A robust, automated data pipeline that extracts live cryptocurrency market data 
 * **SQL Triggers:** Implements server-side database logic to automatically calculate and store percentage price changes upon new data insertion.
 * **Stored Procedures:** Encapsulates INSERT logic in `sp_insert_snapshot`, keeping SQL out of application code and providing a clean DB API layer.
 * **Centralized Logging:** All modules use a shared `logger.py` that writes to both the console and `logs/pipeline.log` for a full audit trail.
+* **Streamlit Dashboard:** Interactive web UI with KPI cards, price-history charts, and filtering.
+* **Docker & Docker Compose:** One-command setup for the full stack (Python + MySQL + Dashboard).
+* **CI/CD:** GitHub Actions workflow runs `flake8` (lint) and `pytest` (tests) on every push.
 
 ## 🗄️ Database Schema
 The database is structured into two primary tables to maintain strict normalization:
@@ -64,15 +67,41 @@ python pipeline.py
 \`\`\`
 *Note: This script can be scheduled via Cron (Linux/Mac) or Task Scheduler (Windows) to run at automated intervals.*
 
+### 6. Launch the Dashboard
+\`\`\`bash
+streamlit run dashboard.py
+\`\`\`
+
+### Alternative: Docker (full stack in one command)
+\`\`\`bash
+docker-compose up --build
+\`\`\`
+This starts MySQL, runs the pipeline, and opens the dashboard at `http://localhost:8501`.
+
+## ✅ Testing
+\`\`\`bash
+python -m pytest tests/ -v
+\`\`\`
+All tests use mocked API and database calls — no live credentials needed.
+
 ## 📂 Project Structure
 \`\`\`
 ├── pipeline.py            # Main orchestrator (fetch → store → export)
 ├── export_report.py       # SQL JOIN query → CSV export
+├── dashboard.py           # Streamlit interactive dashboard
 ├── crypto_stats.py        # Standalone quick-stats viewer
 ├── logger.py              # Centralized logging configuration
-├── market_report.csv      # Auto-generated report output
+├── Dockerfile             # Container image definition
+├── docker-compose.yml     # Full-stack orchestration
+├── requirements.txt       # Python dependencies
 ├── database/
 │   └── setup.sql          # Stored procedure + asset seed data
+├── tests/
+│   ├── test_pipeline.py   # Pipeline unit tests
+│   └── test_export.py     # Export module unit tests
+├── .github/
+│   └── workflows/
+│       └── ci.yml         # GitHub Actions CI pipeline
 ├── logs/
 │   └── pipeline.log       # Full debug-level audit trail
 ├── .env                   # API keys & DB credentials (git-ignored)
