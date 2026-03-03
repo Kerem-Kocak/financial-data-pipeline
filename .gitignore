@@ -1,0 +1,16 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+
+# Logs (audit trail — never commit)
+logs/
+
+# Generated reports
+market_report.csv
