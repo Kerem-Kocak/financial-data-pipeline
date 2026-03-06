@@ -106,5 +106,7 @@ All tests use mocked API and database calls — no live credentials needed.
 │   └── pipeline.log       # Full debug-level audit trail
 ├── .env                   # API keys & DB credentials (git-ignored)
 ├── .gitignore
-└── README.md
+├── README.md
+├── ARCHITECTURE.md        # Full technical deep-dive & interview Q&A
+└── CV_GUIDE.md            # How to present this project on your CV
 \`\`\`
