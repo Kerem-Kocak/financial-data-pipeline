@@ -35,57 +35,57 @@ To add a new asset: insert a row into the `assets` table and append an entry to 
 ## 🚀 Setup & Installation
 
 ### 1. Clone the Repository
-\`\`\`bash
+```bash
 git clone https://github.com/Kerem-Kocak/financial-data-pipeline.git
 cd financial-data-pipeline
-\`\`\`
+```
 
 ### 2. Install Dependencies
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ### 3. Environment Variables
 Create a `.env` file in the root directory and add your credentials:
-\`\`\`env
+```env
 BLOCKCHAIR_API_KEY=your_api_key
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_password
 DB_NAME=financial_pipeline
-\`\`\`
+```
 
 ### 4. Database Initialization
 Run the provided SQL scripts to create the normalized tables, the trigger, and the stored procedure:
-\`\`\`bash
+```bash
 mysql -u root -p financial_pipeline < database/setup.sql
-\`\`\`
+```
 
 ### 5. Run the Pipeline
-\`\`\`bash
+```bash
 python pipeline.py
-\`\`\`
+```
 *Note: This script can be scheduled via Cron (Linux/Mac) or Task Scheduler (Windows) to run at automated intervals.*
 
 ### 6. Launch the Dashboard
-\`\`\`bash
+```bash
 streamlit run dashboard.py
-\`\`\`
+```
 
 ### Alternative: Docker (full stack in one command)
-\`\`\`bash
+```bash
 docker-compose up --build
-\`\`\`
+```
 This starts MySQL, runs the pipeline, and opens the dashboard at `http://localhost:8501`.
 
 ## ✅ Testing
-\`\`\`bash
+```bash
 python -m pytest tests/ -v
-\`\`\`
+```
 All tests use mocked API and database calls — no live credentials needed.
 
 ## 📂 Project Structure
-\`\`\`
+```
 ├── pipeline.py            # Main orchestrator (fetch → store → export)
 ├── export_report.py       # SQL JOIN query → CSV export
 ├── dashboard.py           # Streamlit interactive dashboard
@@ -98,7 +98,7 @@ All tests use mocked API and database calls — no live credentials needed.
 │   └── setup.sql          # Stored procedure + asset seed data
 ├── tests/
 │   ├── test_pipeline.py   # Pipeline unit tests
-│   └── test_export.py     # Export module unit tests
+│   └��─ test_export.py     # Export module unit tests
 ├── .github/
 │   └── workflows/
 │       └── ci.yml         # GitHub Actions CI pipeline
@@ -107,4 +107,9 @@ All tests use mocked API and database calls — no live credentials needed.
 ├── .env                   # API keys & DB credentials (git-ignored)
 ├── .gitignore
 └── README.md
-\`\`\`
+```
+
+## 🤖 AI Acknowledgment
+
+This project was developed with assistance from [Claude](https://claude.ai/) (Anthropic's Claude Opus 4.6).
+All AI-generated content was reviewed and validated by [Kerem Kocak](https://github.com/Kerem-Kocak).
